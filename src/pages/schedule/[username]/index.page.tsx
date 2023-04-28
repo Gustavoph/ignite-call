@@ -2,7 +2,7 @@ import * as S from './styles'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { prisma } from '@/lib/prisma'
 import { Avatar, Heading, Text } from '@ignite-ui/react'
-import { ScheduleForm } from './schedule-form'
+import { ScheduleForm } from './ScheduleForm'
 
 type Props = {
   user: {
