@@ -1,5 +1,6 @@
 import '../lib/dayjs'
 
+import { DefaultSeo } from 'next-seo'
 import type { AppProps } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
 import { globalStyles } from '@/styles/globals'
@@ -13,6 +14,14 @@ export default function App({
 }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
+      <DefaultSeo
+        openGraph={{
+          type: 'website',
+          locale: 'pt_BR',
+          url: 'https://www.ignite-call.com.br/',
+          siteName: 'Ignite Call',
+        }}
+      />
       <SessionProvider session={session}>
         <Component {...pageProps} />
       </SessionProvider>

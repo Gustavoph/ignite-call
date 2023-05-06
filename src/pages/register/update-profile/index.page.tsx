@@ -10,6 +10,7 @@ import {
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { NextSeo } from 'next-seo'
 
 import * as S from './styles'
 import { Container, Header } from '../styles'
@@ -38,47 +39,53 @@ export default function UpdateProfile() {
   const session = useSession()
   const router = useRouter()
 
+  const user = session.data?.user
+
   async function handleUpdateProfile(data: FormData) {
     const { bio } = data
     await api.put('/users/update-profile', { bio })
-    await router.push(`/schedule/${session.data?.user.username}`)
+    await router.push(`/schedule/${user?.username}`)
   }
 
   return (
-    <Container>
-      <Header>
-        <Heading as="strong">Bem-vindo ao Ignite Call!</Heading>
-        <Text>
-          Precisamos de algumas informações para criar seu perfil! Ah, você pode
-          editar essas informações depois.
-        </Text>
+    <>
+      <NextSeo title={`Agendar com ${user?.username} | Ignite Call`} noindex />
 
-        <MultiStep size={4} currentStep={4} />
-      </Header>
+      <Container>
+        <Header>
+          <Heading as="strong">Bem-vindo ao Ignite Call!</Heading>
+          <Text>
+            Precisamos de algumas informações para criar seu perfil! Ah, você
+            pode editar essas informações depois.
+          </Text>
 
-      <S.ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
-        <label>
-          <Text>Foto de perfil</Text>
-          <Avatar
-            alt={session.data?.user.name}
-            src={session.data?.user.avatar_url}
-          />
-        </label>
+          <MultiStep size={4} currentStep={4} />
+        </Header>
 
-        <label>
-          <Text size="sm">Sobre você</Text>
-          <TextArea {...register('bio')} />
-          <S.FormAnnotation size="sm">
-            Fale um pouco sobre você. Isto será exibido em sua página pessoal
-          </S.FormAnnotation>
-        </label>
+        <S.ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
+          <label>
+            <Text>Foto de perfil</Text>
+            <Avatar
+              alt={session.data?.user.name}
+              src={session.data?.user.avatar_url}
+            />
+          </label>
 
-        <Button type="submit" disabled={isSubmitting}>
-          Finalizar
-          <ArrowRight />
-        </Button>
-      </S.ProfileBox>
-    </Container>
+          <label>
+            <Text size="sm">Sobre você</Text>
+            <TextArea {...register('bio')} />
+            <S.FormAnnotation size="sm">
+              Fale um pouco sobre você. Isto será exibido em sua página pessoal
+            </S.FormAnnotation>
+          </label>
+
+          <Button type="submit" disabled={isSubmitting}>
+            Finalizar
+            <ArrowRight />
+          </Button>
+        </S.ProfileBox>
+      </Container>
+    </>
   )
 }
 

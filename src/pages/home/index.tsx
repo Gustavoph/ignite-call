@@ -1,35 +1,44 @@
 import { Heading, Text } from '@ignite-ui/react'
 import Image from 'next/image'
 import * as S from './styles'
+import { NextSeo } from 'next-seo'
 
 import previewImage from '../../assets/app-preview.png'
 import { ClaimUsernameForm } from './components/ClaimUsernameForm'
 
 export default function Home() {
   return (
-    <S.Container>
-      <S.Hero>
-        <Heading as="h1" size="4xl">
-          Agendamento descomplicado
-        </Heading>
+    <>
+      <NextSeo
+        title="Descomplique sua agenda | Ignite Call"
+        description=" Conecte seu calendário e permita que as pessoas marquem agendamentos
+        no seu tempo livre."
+      />
 
-        <Text size="xl">
-          Conecte seu calendário e permita que as pessoas marquem agendamentos
-          no seu tempo livre
-        </Text>
+      <S.Container>
+        <S.Hero>
+          <Heading as="h1" size="4xl">
+            Agendamento descomplicado
+          </Heading>
 
-        <ClaimUsernameForm />
-      </S.Hero>
+          <Text size="xl">
+            Conecte seu calendário e permita que as pessoas marquem agendamentos
+            no seu tempo livre
+          </Text>
 
-      <S.Preview>
-        <Image
-          src={previewImage}
-          height={400}
-          quality={100}
-          priority
-          alt="Calendário simbolizando aplicação em funcionamento"
-        />
-      </S.Preview>
-    </S.Container>
+          <ClaimUsernameForm />
+        </S.Hero>
+
+        <S.Preview>
+          <Image
+            src={previewImage}
+            height={400}
+            quality={100}
+            priority
+            alt="Calendário simbolizando aplicação em funcionamento"
+          />
+        </S.Preview>
+      </S.Container>
+    </>
   )
 }
